@@ -1,0 +1,43 @@
+$icon-size: 50px;
+$icon-hover-size: 68px;
+$feedback-score-margin: 1em;
+$feedback-score-title-displacement: 2em;
+
+.feedback-score-selector {
+  // reset list
+  padding: 0;
+  margin: 0;
+  margin-top: -1em;
+
+  li {
+    display: inline-block;
+
+    .feedback-score {
+      cursor: pointer;
+      margin: ($icon-hover-size - $icon-size) $feedback-score-margin $feedback-score-title-displacement $feedback-score-margin;
+      height: $icon-size;
+      width: $icon-size;
+      position: relative;
+
+      &:hover {
+        margin-top: 0;
+        height: $icon-hover-size;
+
+        .feedback-score-title {
+          display: block;
+        }
+      }
+    }
+
+    .feedback-score-title {
+      position: absolute;
+      bottom: -$feedback-score-title-displacement;
+      left: 0;
+      right: 0;
+      font-weight: 400;
+      margin: auto;
+      white-space: nowrap;
+      display: none;
+    }
+  }
+}

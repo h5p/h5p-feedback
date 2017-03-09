@@ -1,0 +1,22 @@
+[
+  {
+    "label": "Text",
+    "importance": "high",
+    "name": "title",
+    "type": "text",
+    "widget": "html",
+    "placeholder": "How satisfied are you with the product?",
+    "description": "Statement that you want the user to rate",
+    "tags": [
+      "strong",
+      "em",
+      "u",
+      "a",
+      "ul",
+      "ol",
+      "h2",
+      "h3",
+      "hr"
+    ]
+  }
+]

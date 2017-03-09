@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+.h5p-feedback {
+  font-family: 'Open Sans', sans-serif;
+  padding: 2.5em;
+
+  .feedback-title {
+    font-weight: 400;
+    display: inline-block;
+    font-size: 1.3em;
+  }
+
+  .feedback-score-selector {
+    float: right;
+  }
+}
