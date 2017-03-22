@@ -5,7 +5,6 @@ const extractSass = new ExtractTextPlugin({
   filename: "h5p-feedback.css"
 });
 
-
 const config = {
   entry: "./src/entries/dist.js",
   devtool: 'inline-source-map',
@@ -15,6 +14,9 @@ const config = {
     sourceMapFilename: '[file].map'
   },
   resolve: {
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js' // 'vue/dist/vue.common.js' for webpack 1
+    },
     modules: [
       path.resolve('./src'),
       path.resolve('./node_modules'),

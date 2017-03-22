@@ -28,7 +28,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-latest": "^6.22.0",
     "browsersync": "0.0.1-security",
-    "css-loader": "^0.26.2",
+    "css-loader": "^0.27.3",
     "extract-text-webpack-plugin": "^2.0.0",
     "file-loader": "^0.10.1",
     "html-webpack-plugin": "^2.24.1",
@@ -41,15 +41,16 @@
     "node-sass": "^4.5.0",
     "resolve-url-loader": "^2.0.2",
     "sass-loader": "^6.0.2",
-    "style-loader": "^0.13.2",
+    "style-loader": "^0.15.0",
     "url-loader": "^0.5.8",
-    "vue-loader": "^11.1.4",
-    "vue-template-compiler": "^2.1.8",
-    "webpack": "^2.2.1",
+    "vue-loader": "^11.2.0",
+    "vue-template-compiler": "^2.2.4",
+    "webpack": "^2.3.0",
     "webpack-dev-middleware": "^1.8.4",
     "webpack-hot-middleware": "^2.13.2"
   },
   "dependencies": {
-    "vue": "^2.2.1"
+    "vue": "^2.2.4",
+    "vue-router": "^2.3.0"
   }
 }
