@@ -1,0 +1,40 @@
+@import '../base/colors';
+@import '../mixins/box-shadow';
+
+@mixin button-filled($background-color, $color) {
+  background-color: $background-color;
+  color: $color;
+
+  &:hover {
+    background-color: lighten($background-color, 10%);
+  }
+
+  &:active {
+    background-color: darken($background-color, 10%);
+  }
+
+  &[disabled] {
+    background-color: lighten($background-color, 40%);
+  }
+}
+
+.h5p-feedback .button {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+  line-height: 1em;
+  padding: 0.708em 1.375em;
+  border-radius: 1.375em;
+  display: inline-block;
+  cursor: pointer;
+  border: transparent;
+  transition: background-color .35s ease;
+
+  &:focus {
+    @include blueGlow
+  }
+
+  &.button-primary {
+    @include button-filled($primary, white);
+  }
+}

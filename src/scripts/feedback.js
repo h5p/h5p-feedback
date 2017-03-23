@@ -49,7 +49,8 @@ export default class Feedback extends H5P.EventDispatcher {
 
     // set data on text input view
     TextInput.data = () => ({
-      alternatives
+      alternatives,
+      text: ''
     });
 
     // crate router
@@ -59,7 +60,14 @@ export default class Feedback extends H5P.EventDispatcher {
         { path: '/score-input', component: ScoreInput },
         { path: '/text-input/:score', component: TextInput, props: true },
         { path: '/final', component: Final },
+        { path: '/', redirect: '/score-input' },
       ]
+    });
+
+    // trigger resize when switching views
+    router.beforeEach((to, from, next) => {
+      next();
+      this.trigger('resize');
     });
 
     // create view model
@@ -72,20 +80,25 @@ export default class Feedback extends H5P.EventDispatcher {
      * @public
      */
     this.attach = $wrapper => {
-      // create root element
-      let element = document.createElement('div');
-      element.id = `h5p-feedback-content-${this.contentId}`;
-      element.className = 'h5p-feedback';
-      element.innerHTML = '<router-view></router-view>';
-
-      // add root element to wrapper
-      $wrapper.get(0).appendChild(element);
-
-      // mount root view
-      this.viewModel.$mount(`#${element.id}`);
-
-      // navigate to score
+      const id = `h5p-feedback-content-${this.contentId}`;
+      $wrapper.get(0).appendChild(this.createRootElement(id));
+      this.viewModel.$mount(`#${id}`);
       router.push('score-input');
     };
+
+    /**
+     * Creates the root element that vue will render into
+     *
+     * @param {string} id
+     *
+     * @return {Element}
+     */
+    this.createRootElement = id => {
+      const element = document.createElement('div');
+      element.id = id;
+      element.className = 'h5p-feedback';
+      element.innerHTML = '<router-view></router-view>';
+      return element;
+    }
   }
 }

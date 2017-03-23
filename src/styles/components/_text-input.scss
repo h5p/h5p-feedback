@@ -1,3 +1,17 @@
 .feedback-text-input {
+  .from-score-input {
+    margin-bottom: 2em;
+  }
 
+  .feedback-score {
+    display: inline-block;
+    width: 2.5em;
+    height: 2.5em;
+    margin-right: 1em;
+    margin-bottom: -1em;
+  }
+
+  .feedback-score-title {
+    margin-right: 1em;
+  }
 }
