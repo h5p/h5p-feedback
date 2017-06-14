@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import ScoreInput from './views/ScoreInput.vue';
 import TextInput from './views/TextInput.vue';
 import Final from './views/Final.vue';
+import XAPIBuilder from './components/xapi';
 
 Vue.use(Router);
 
@@ -17,6 +18,7 @@ export default class Feedback extends H5P.EventDispatcher {
   constructor(config, contentId, contentData = {}) {
     super();
     this.contentId = contentId;
+    this.xapi = new XAPIBuilder(config.title);
 
     const alternatives = [
       {
@@ -66,6 +68,19 @@ export default class Feedback extends H5P.EventDispatcher {
     // create view model
     this.viewModel = new Vue({ router });
 
+    // Fire xAPI score event on
+    router.app.$on('submit-score', score => {
+      const event = this.createXAPIEventTemplate('answered');
+      this.xapi.createLikertEvent(event, score, alternatives.map(this.alternativeeToScale));
+      this.trigger(event);
+    });
+
+    router.app.$on('submit-text', responseText => {
+      const event = this.createXAPIEventTemplate('answered');
+      this.xapi.createTextEvent(event, responseText);
+      this.trigger(event);
+    });
+
     /**
      * Attach library to wrapper
      *
@@ -92,6 +107,11 @@ export default class Feedback extends H5P.EventDispatcher {
       element.className = 'h5p-feedback';
       element.innerHTML = '<router-view></router-view>';
       return element;
-    }
+    };
+
+    this.alternativeeToScale = alternative => ({
+      id: alternative.score,
+      description: this.xapi.wrapAsTranslation(alternative.title)
+    })
   }
 }

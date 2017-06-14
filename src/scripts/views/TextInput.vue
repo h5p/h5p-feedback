@@ -28,8 +28,7 @@
 
     methods: {
       sendText: function(text) {
-        console.log('sendtext', text);
-        // TODO Fire xAPI
+        this.$router.app.$emit('submit-text', text);
         this.$router.push('/final');
       }
     }

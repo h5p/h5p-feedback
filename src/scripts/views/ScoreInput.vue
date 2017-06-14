@@ -16,17 +16,16 @@
   export default {
     name: 'score-input-view',
     props: ['alternatives', 'message'],
-    // set data on score input view
+
     data: () => ({
       score: '0'
     }),
+
     methods: {
       sendScore: function(alternative) {
         this.score = alternative.score;
-
-        this.$router.push({
-          path: `text-input/${alternative.score}`,
-        });
+        this.$router.app.$emit('submit-score', alternative.score);
+        this.$router.push(`text-input/${alternative.score}`);
       }
     }
   }
