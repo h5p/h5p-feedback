@@ -30,7 +30,10 @@ const config = {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
-          preserveWhitespace: false
+          preserveWhitespace: false,
+          loaders: {
+            scss: 'vue-style-loader!css-loader!sass-loader'
+          }
         }
       },
       {

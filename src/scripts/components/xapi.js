@@ -10,22 +10,21 @@ const Type = {
 };
 
 export default class XAPIBuilder {
-  constructor(question) {
-    this.question = question;
-  }
+  constructor(question) { }
 
   /**
    * Creates an answered xAPI event with with the score
    *
    * @param {XAPIEvent} event
+   * @param {string} description
    * @param {string} score
    * @param {object[]} scale
    * @return {XAPIEvent}
    */
-  createLikertEvent(event, score, scale) {
+  createLikertEvent(event, description, score, scale) {
     // prepare question
     const definition = event.getVerifiedStatementValue(['object', 'definition']);
-    definition.description = this.wrapAsTranslation(this.question);
+    definition.description = this.wrapAsTranslation(description);
     definition.type = Type.INTERACTION;
     definition.interactionType = InteractionType.LIKERT;
     definition.correctResponsesPattern = [score];
@@ -40,13 +39,14 @@ export default class XAPIBuilder {
    * Creates an answered xAPI event with with the response text
    *
    * @param {XAPIEvent} event
+   * @param {string} description
    * @param {string} responseText
    * @return {XAPIEvent}
    */
-  createTextEvent(event, responseText) {
+  createTextEvent(event, description, responseText) {
     // prepare question
     const definition = event.getVerifiedStatementValue(['object', 'definition']);
-    definition.description = this.wrapAsTranslation(this.question);
+    definition.description = this.wrapAsTranslation(description);
     definition.type = Type.INTERACTION;
     definition.interactionType = InteractionType.FILL_IN;
     definition.correctResponsesPattern = [responseText];

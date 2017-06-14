@@ -18,43 +18,45 @@ export default class Feedback extends H5P.EventDispatcher {
   constructor(config, contentId, contentData = {}) {
     super();
     this.contentId = contentId;
-    this.xapi = new XAPIBuilder(config.title);
+    this.xapi = new XAPIBuilder();
 
     const alternatives = [
       {
-        title: 'Very Satisfied',
+        title: config.l10n.scaleVerySatisfied,
         cls: 'feedback-score-4',
         score: '4'
       },
       {
-        title: 'Satisfied',
+        title: config.l10n.scaleSatisfied,
         cls: 'feedback-score-3',
         score: '3'
       },
       {
-        title: 'Neutral',
+        title: config.l10n.scaleNeutral,
         cls: 'feedback-score-2',
         score: '2'
       },
       {
-        title: 'Unsatisfied',
+        title: config.l10n.scaleUnsatisfied,
         cls: 'feedback-score-1',
         score: '1'
       }];
 
+
     // set data on text input view
     TextInput.data = () => ({
       alternatives,
-      text: ''
+      text: '',
+      labelTextInput: config.labelTextInput
     });
 
     // crate router
     const router = new Router({
       mode: 'abstract',
       routes: [
-        { path: '/score-input', component: ScoreInput, props: { alternatives: alternatives, message: config.title} },
+        { path: '/score-input', component: ScoreInput, props: { alternatives: alternatives, message: config.labelScoreInput } },
         { path: '/text-input/:score', component: TextInput, props: true },
-        { path: '/final', component: Final, props: true },
+        { path: '/final', component: Final, props: { finishedText: config.finishedText } },
         { path: '/', redirect: '/score-input' },
       ]
     });
@@ -71,7 +73,8 @@ export default class Feedback extends H5P.EventDispatcher {
     // Fire xAPI score event on
     router.app.$on('submit-score', score => {
       const event = this.createXAPIEventTemplate('answered');
-      this.xapi.createLikertEvent(event, score, alternatives.map(this.alternativeeToScale));
+      const scale = alternatives.map(this.alternativeeToScale);
+      this.xapi.createLikertEvent(event, config.labelScoreInput, score, scale);
       this.trigger(event);
     });
 

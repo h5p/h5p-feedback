@@ -6,8 +6,7 @@
       <router-link to="/score-input">Change</router-link>
     </div>
 
-    <h2>Thanks for the rating!</h2>
-    <p>Let us know how we can improve your experience with the <strong>Drag Text</strong> authoring tool.</p>
+    <div v-html="labelTextInput"></div>
 
     <textarea rows="4" placeholder="Your Feedback" v-model="text"></textarea>
     <button v-bind:disabled="text.length < 1" class="button button-primary" v-on:click="sendText(text)">Send</button>
@@ -34,3 +33,23 @@
     }
   }
 </script>
+
+<style lang="scss">
+.feedback-text-input {
+  .from-score-input {
+    margin-bottom: 2em;
+  }
+
+  .feedback-score {
+    display: inline-block;
+    width: 2.5em;
+    height: 2.5em;
+    margin-right: 1em;
+    margin-bottom: -1em;
+  }
+
+  .feedback-score-title {
+    margin-right: 1em;
+  }
+}
+</style>
