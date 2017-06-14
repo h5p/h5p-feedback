@@ -1,5 +1,7 @@
-var path = require('path');
+const path = require('path');
+const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const isProd = (process.env.NODE_ENV === 'production');
 
 const extractSass = new ExtractTextPlugin({
   filename: "h5p-feedback.css"
@@ -7,7 +9,7 @@ const extractSass = new ExtractTextPlugin({
 
 const config = {
   entry: "./src/entries/dist.js",
-  devtool: 'inline-source-map',
+  devtool:  isProd ? 'source-map' : 'inline-source-map',
   output: {
     path: path.join(__dirname, 'dist'),
     filename: "h5p-feedback.js",
@@ -61,7 +63,12 @@ const config = {
     ]
   },
   plugins: [
-    extractSass
+    extractSass,
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+      }
+    })
   ]
 };
 
