@@ -7,6 +7,7 @@
 
 <script>
   export default {
-    name: 'final-view'
+    name: 'final-view',
+    props: ['alternatives']
   }
 </script>

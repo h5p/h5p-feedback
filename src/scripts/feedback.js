@@ -40,13 +40,6 @@ export default class Feedback extends H5P.EventDispatcher {
         score: '1'
       }];
 
-    // set data on score input view
-    ScoreInput.data = () => ({
-      message: config.title,
-      score: '0',
-      alternatives
-    });
-
     // set data on text input view
     TextInput.data = () => ({
       alternatives,
@@ -57,9 +50,9 @@ export default class Feedback extends H5P.EventDispatcher {
     const router = new Router({
       mode: 'abstract',
       routes: [
-        { path: '/score-input', component: ScoreInput },
+        { path: '/score-input', component: ScoreInput, props: { alternatives: alternatives, message: config.title} },
         { path: '/text-input/:score', component: TextInput, props: true },
-        { path: '/final', component: Final },
+        { path: '/final', component: Final, props: true },
         { path: '/', redirect: '/score-input' },
       ]
     });
