@@ -31,7 +31,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" type="text/scss">
 $icon-size: 50px;
 $icon-hover-size: 68px;
 $feedback-score-margin: 1em;

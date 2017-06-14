@@ -20,6 +20,8 @@ export default class Feedback extends H5P.EventDispatcher {
     this.contentId = contentId;
     this.xapi = new XAPIBuilder();
 
+    const state = contentData.previousState || {};
+
     const alternatives = [
       {
         title: config.l10n.scaleVerySatisfied,
@@ -41,7 +43,6 @@ export default class Feedback extends H5P.EventDispatcher {
         cls: 'feedback-score-1',
         score: '1'
       }];
-
 
     // set data on text input view
     TextInput.data = () => ({
@@ -70,15 +71,19 @@ export default class Feedback extends H5P.EventDispatcher {
     // create view model
     this.viewModel = new Vue({ router });
 
-    // Fire xAPI score event on
+    // update state
+    router.app.$on('submit-score', score => state.score = score);
+    router.app.$on('submit-text', responseText => state.responseText = responseText);
+
+    // fire xapi events on score or text response updates
     router.app.$on('submit-score', score => {
-      const event = this.createXAPIEventTemplate('answered');
       const scale = alternatives.map(this.alternativeeToScale);
+      const event = this.createXAPIEventTemplate('answered');
       this.xapi.createLikertEvent(event, config.labelScoreInput, score, scale);
       this.trigger(event);
     });
 
-    router.app.$on('submit-text', responseText => {
+    router.app.$on('submit-text',  responseText => {
       const event = this.createXAPIEventTemplate('answered');
       this.xapi.createTextEvent(event, responseText);
       this.trigger(event);
@@ -98,6 +103,13 @@ export default class Feedback extends H5P.EventDispatcher {
     };
 
     /**
+     * Returns the current state
+     *
+     * @return {object}
+     */
+    this.getCurrentState = () => state;
+
+    /**
      * Creates the root element that vue will render into
      *
      * @param {string} id
@@ -112,9 +124,15 @@ export default class Feedback extends H5P.EventDispatcher {
       return element;
     };
 
+    /**
+     * Returns an array of xAPI scale objects when given a an
+     * array of alternatives
+     *
+     * @param {object[]} alternative
+     */
     this.alternativeeToScale = alternative => ({
       id: alternative.score,
       description: this.xapi.wrapAsTranslation(alternative.title)
-    })
+    });
   }
 }

@@ -34,7 +34,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" type="text/scss">
 .feedback-text-input {
   .from-score-input {
     margin-bottom: 2em;
