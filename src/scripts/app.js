@@ -5,6 +5,11 @@ import TextInput from './views/TextInput.vue';
 import Final from './views/Final.vue';
 import XAPIBuilder from './components/xapi';
 
+import Face1 from '../images/face1.svg';
+import Face2 from '../images/face2.svg';
+import Face3 from '../images/face3.svg';
+import Face4 from '../images/face4.svg';
+
 Vue.use(Router);
 
 export default class Feedback extends H5P.EventDispatcher {
@@ -26,22 +31,26 @@ export default class Feedback extends H5P.EventDispatcher {
       {
         title: config.l10n.scaleVerySatisfied,
         cls: 'feedback-score-4',
-        score: '4'
+        score: '4',
+        icon: Face4
       },
       {
         title: config.l10n.scaleSatisfied,
         cls: 'feedback-score-3',
-        score: '3'
+        score: '3',
+        icon: Face3
       },
       {
         title: config.l10n.scaleNeutral,
         cls: 'feedback-score-2',
-        score: '2'
+        score: '2',
+        icon: Face2
       },
       {
         title: config.l10n.scaleUnsatisfied,
         cls: 'feedback-score-1',
-        score: '1'
+        score: '1',
+        icon: Face1
       }];
 
     // set data on text input view
