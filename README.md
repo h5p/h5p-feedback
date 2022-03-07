@@ -28,3 +28,9 @@ Then you can spin up the local dev environment using webpack dev server:
 ```bash
 npm run dev
 ```
+
+## License
+
+All code is licensed under MIT License
+
+Open Sans font is licensed under Apache license, Version 2.0
