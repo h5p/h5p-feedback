@@ -21,11 +21,11 @@
   "author": "Tom Arild Jakobsen <tom.arild.jakobsen@joubel.com>",
   "license": "MIT",
   "devDependencies": {
-    "@babel/cli": "^7.18.6",
-    "@babel/core": "^7.18.6",
-    "@babel/plugin-proposal-object-rest-spread": "^7.18.6",
+    "@babel/cli": "^7.18.10",
+    "@babel/core": "^7.18.10",
+    "@babel/plugin-proposal-object-rest-spread": "^7.18.9",
     "@babel/plugin-transform-object-assign": "^7.18.6",
-    "@babel/preset-env": "^7.18.6",
+    "@babel/preset-env": "^7.18.10",
     "babel-loader": "^8.2.5",
     "browsersync": "0.0.1-security",
     "cross-env": "^7.0.3",
@@ -55,5 +55,8 @@
     "striptags": "^3.2.0",
     "vue": "^3.2.37",
     "vue-router": "^4.0.16"
+  },
+  "overrides": {
+    "scss-tokenizer": "0.4.3"
   }
 }

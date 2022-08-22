@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import Router from 'vue-router';
+import { createApp } from 'vue';
+import { createRouter } from 'vue-router';
 import ScoreInput from './views/ScoreInput.vue';
 import TextInput from './views/TextInput.vue';
 import Final from './views/Final.vue';
@@ -9,8 +9,6 @@ import Face1 from '../images/face1.svg';
 import Face2 from '../images/face2.svg';
 import Face3 from '../images/face3.svg';
 import Face4 from '../images/face4.svg';
-
-Vue.use(Router);
 
 export default class Feedback extends H5P.EventDispatcher {
   /**
@@ -60,8 +58,8 @@ export default class Feedback extends H5P.EventDispatcher {
       labelTextInput: config.labelTextInput
     });
 
-    // crate router
-    const router = new Router({
+    // create router
+    const router = createRouter({
       mode: 'abstract',
       routes: [
         { path: '/score-input', component: ScoreInput, props: { alternatives: alternatives, message: config.labelScoreInput } },
@@ -78,7 +76,10 @@ export default class Feedback extends H5P.EventDispatcher {
     });
 
     // create view model
-    this.viewModel = new Vue({ router });
+    this.viewModel = createApp({ router });
+
+    // Use Router in Vue instance
+    this.viewModel.use(router);
 
     // update state
     router.app.$on('submit-score', score => state.score = score);
